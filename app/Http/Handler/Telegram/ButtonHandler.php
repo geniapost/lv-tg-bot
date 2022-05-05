@@ -31,7 +31,6 @@ class ButtonHandler
         $this->user = User::create($from->toArray());
 
         $text = $message->get('text');
-        Log::info($message);
         $clicked_button = Button::where('title', $text)->first();
 
         if(mb_substr($text, 0, 1, 'utf-8') != '/')
