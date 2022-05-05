@@ -5,8 +5,10 @@ namespace App\Http\Handler\Telegram;
 use App\Models\Telegram\Button;
 use App\Models\Telegram\User;
 use App\Models\UserHistory;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Keyboard\Keyboard;
+use Telegram\Bot\Laravel\Facades\Telegram;
 use Telegram\Bot\Objects\Update;
 
 class ButtonHandler
@@ -29,7 +31,7 @@ class ButtonHandler
         $this->user = User::create($from->toArray());
 
         $text = $message->get('text');
-
+        Log::info($message);
         $clicked_button = Button::where('title', $text)->first();
 
         if(mb_substr($text, 0, 1, 'utf-8') != '/')
@@ -123,7 +125,8 @@ class ButtonHandler
         $response = app()->make(Api::class)->sendMessage([
             'text' => $this->message,
             'chat_id' => $this->user->chat_id,
-            'reply_markup' => $this->reply_markup
+            'reply_markup' => $this->reply_markup,
+            'parse_mode' => 'Markdown',
         ]);
     }
 }
