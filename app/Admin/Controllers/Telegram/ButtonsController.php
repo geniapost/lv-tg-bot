@@ -34,7 +34,9 @@ class ButtonsController extends AdminController
         $form->textarea('text', 'Зміст')->rules('required');
 
         $form->select('parent_id', 'Відноситься до')->options(Button::all()->pluck('title', 'id'));
-        $form->image('image', 'Зображення');
+        $form->mediaLibrary('media', 'Зображення')
+            ->responsive()
+            ->removable();
 
         $form->display('created_at', trans('admin.created_at'));
         $form->display('updated_at', trans('admin.updated_at'));
