@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0753932806e5e46b95231990d7b9b84c",
+    "content-hash": "da8506c77cdcbc048f06c3d53e42393d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -838,6 +838,43 @@
                 "source": "https://github.com/z-song/laravel-admin/tree/1.8.18"
             },
             "time": "2022-03-16T06:56:41+00:00"
+        },
+        {
+            "name": "filament/spatie-laravel-media-library-plugin",
+            "version": "v2.11.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-filament/spatie-laravel-media-library-plugin.git",
+                "reference": "d7b625ee8625506415b905a2efb2e555bc654992"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-filament/spatie-laravel-media-library-plugin/zipball/d7b625ee8625506415b905a2efb2e555bc654992",
+                "reference": "d7b625ee8625506415b905a2efb2e555bc654992",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.6|^9.0",
+                "php": "^8.0",
+                "spatie/laravel-medialibrary": "^9.0|^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Filament\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Filament support for `spatie/laravel-medialibrary`.",
+            "homepage": "https://github.com/laravel-filament/filament",
+            "support": {
+                "issues": "https://github.com/laravel-filament/filament/issues",
+                "source": "https://github.com/laravel-filament/filament"
+            },
+            "time": "2022-04-27T00:28:30+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
