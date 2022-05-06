@@ -82,7 +82,7 @@ class ButtonHandler
 
         if(count($clicked_button->children()->pluck('id')))
         {
-            $children = Button::find($clicked_button->children()->pluck('id'));
+            $children = Button::defaultOrder()->find($clicked_button->children()->pluck('id'));
             foreach ($children as $child)
             {
                 array_unshift($this->keyboard, [$child->title]);
@@ -109,7 +109,7 @@ class ButtonHandler
 
     public function handleRootButtons()
     {
-        $root_buttons = Button::whereNull('parent_id')->get();
+        $root_buttons = Button::whereNull('parent_id')->defaultOrder()->get();
 
         if($root_buttons->count())
         {

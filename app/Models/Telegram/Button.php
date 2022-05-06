@@ -16,4 +16,16 @@ class Button extends Model implements HasMedia
     protected $table = 'buttons';
 
     protected $guarded = [];
+
+    public function getNeighbors()
+    {
+        if(is_null($this->parent_id))
+        {
+            $result = Button::where('id', '!=', $this->id)->whereNull('parent_id');
+        }else{
+            $result = Button::where('id', '!=', $this->id)->where('parent_id', $this->parent_id);
+        }
+
+        return $result->pluck('title', 'id')->toArray();
+    }
 }

@@ -15,7 +15,7 @@ use Telegram\Bot\Api;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.home');
 });
 
 Route::post('/telegram/webhook', function (){
