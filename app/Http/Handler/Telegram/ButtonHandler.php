@@ -96,6 +96,11 @@ class ButtonHandler
             $this->sendPhoto($clicked_button->image);
         }
 
+        if(!is_null($clicked_button->file))
+        {
+            $this->sendFile($clicked_button->file);
+        }
+
         UserHistory::create([
             'user_id' => $this->user->id,
             'button_id' => $clicked_button->id,
@@ -123,11 +128,17 @@ class ButtonHandler
 
     public function sendPhoto($path)
     {
-        $response = app()->make(Api::class)->sendPhoto([
+        app()->make(Api::class)->sendPhoto([
             'chat_id' => $this->user->chat_id,
             'photo' => new InputFile(storage_path().'/app/public/'.$path),
-//            'photo' => storage_path('images/2.jpeg'),
-//            'photo' => env('APP_URL').'/storage/'.$path,
+        ]);
+    }
+
+    public function sendFile($path)
+    {
+        app()->make(Api::class)->sendDocument([
+            'chat_id' => $this->user->chat_id,
+            'document' => new InputFile(storage_path().'/app/public/'.$path),
         ]);
     }
 
