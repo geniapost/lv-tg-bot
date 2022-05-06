@@ -7,6 +7,7 @@ use App\Models\Telegram\User;
 use App\Models\UserHistory;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
+use Telegram\Bot\FileUpload\InputFile;
 use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Telegram\Bot\Objects\Update;
@@ -42,12 +43,11 @@ class ButtonHandler
                 if(is_null($clicked_button))
                 {
                     $this->message = 'Даної опції не існує';
+                    $this->send();
                 }else
                 {
                     $this->handleClick($clicked_button);
                 }
-
-                $this->send();
             }
         }
     }
@@ -72,9 +72,8 @@ class ButtonHandler
             }
         }else{
             $this->message = 'Даної опції не існує';
+            $this->send();
         }
-
-        $this->send();
     }
 
     public function handleClick(Button $clicked_button)
@@ -88,6 +87,13 @@ class ButtonHandler
             {
                 array_unshift($this->keyboard, [$child->title]);
             }
+        }
+
+        $this->send();
+
+        if(!is_null($clicked_button->image))
+        {
+            $this->sendPhoto($clicked_button->image);
         }
 
         UserHistory::create([
@@ -111,6 +117,18 @@ class ButtonHandler
         }else{
             $this->message = 'Наразі немає опцій';
         }
+
+        $this->send();
+    }
+
+    public function sendPhoto($path)
+    {
+        $response = app()->make(Api::class)->sendPhoto([
+            'chat_id' => $this->user->chat_id,
+            'photo' => new InputFile(storage_path().'/app/public/'.$path),
+//            'photo' => storage_path('images/2.jpeg'),
+//            'photo' => env('APP_URL').'/storage/'.$path,
+        ]);
     }
 
     public function send()
